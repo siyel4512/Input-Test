@@ -10,6 +10,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     public CharacterController cc;
     //public Vector3 direction;
 
+    public List<Tracking> trackings = new List<Tracking>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,11 @@ public class PlayerNetworkManager : NetworkBehaviour
         if (Object.HasInputAuthority)
         {
             Local = this;
+
+            for (int i = 0; i < trackings.Count; i++)
+            {
+                trackings[i].enabled = true;
+            }
 
             Debug.Log("Spawned local player");
         }
