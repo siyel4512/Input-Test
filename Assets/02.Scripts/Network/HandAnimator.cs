@@ -19,8 +19,8 @@ public class HandAnimator : NetworkBehaviour
         //RPC_test();
     }
 
-    //[Rpc(RpcSources.InputAuthority, RpcTargets.InputAuthority)]
-    [Rpc(RpcSources.All, RpcTargets.InputAuthority)]
+    [Rpc(RpcSources.InputAuthority, RpcTargets.InputAuthority)]
+    //[Rpc(RpcSources.All, RpcTargets.InputAuthority)]
     private void RPC_test()
     {
         //if (networkObject.HasInputAuthority)

@@ -10,8 +10,6 @@ public class PlayerNetworkManager : NetworkBehaviour
     public CharacterController cc;
     //public Vector3 direction;
 
-    public List<Tracking> trackings = new List<Tracking>();
-
     // Start is called before the first frame update
     void Start()
     {
@@ -30,11 +28,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             Local = this;
 
-            for (int i = 0; i < trackings.Count; i++)
-            {
-                trackings[i].enabled = true;
-            }
-
             Debug.Log("Spawned local player");
         }
         else
@@ -49,7 +42,6 @@ public class PlayerNetworkManager : NetworkBehaviour
         {
             if (cc != null)
             {
-                Debug.Log(data.direction);
                 cc.Move(data.direction.normalized * Runner.DeltaTime * 2f);
             }
         }
