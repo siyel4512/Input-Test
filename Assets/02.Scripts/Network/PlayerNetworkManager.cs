@@ -40,6 +40,8 @@ public class PlayerNetworkManager : NetworkBehaviour
     {
         if (GetInput(out NetworkInputData data))
         {
+            //Debug.LogError("input data : " + data.direction.normalized);
+
             if (cc != null)
             {
                 cc.Move(data.direction.normalized * Runner.DeltaTime * 2f);

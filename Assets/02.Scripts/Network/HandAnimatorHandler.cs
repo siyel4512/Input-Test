@@ -31,22 +31,31 @@ public class HandAnimatorHandler : NetworkBehaviour
         //{
         //    RPC_TEST();
         //}
-    }
+        handAnimator.PressButton();
 
-    private void Update()
-    {
         if (networkObject.HasInputAuthority)
         {
-            RPC_TEST();
+            if (handAnimator.isPress)
+            {
+                RPC_TEST();
+            }
         }
     }
+
+    //private void Update()
+    //{
+    //    if (networkObject.HasInputAuthority)
+    //    {
+    //        RPC_TEST();
+    //    }
+    //}
 
     [Rpc(RpcSources.InputAuthority, RpcTargets.All)]
     public void RPC_TEST()
     {
         //if (networkObject.HasInputAuthority)
         {
-            Debug.LogError($"{networkObject.Id} : {transform.name} 이런.....");
+            //Debug.LogError($"{networkObject.Id} : {transform.name} 이런.....");
 
             handAnimator.Obj_Move();
         }

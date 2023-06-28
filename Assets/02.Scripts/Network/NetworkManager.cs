@@ -33,11 +33,13 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
         {
             if (GUI.Button(new Rect(0, 0, 200, 40), "Host"))
             {
-                StartGame(GameMode.Host);
+                //StartGame(GameMode.Host);
+                StartGame(GameMode.Shared);
             }
             if (GUI.Button(new Rect(0, 40, 200, 40), "Join"))
             {
-                StartGame(GameMode.Client);
+                //StartGame(GameMode.Client);
+                StartGame(GameMode.Shared);
             }
         }
     }
@@ -63,6 +65,8 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
         if (playerInputManager != null)
         {
+            //Debug.Log("OnInput() 호출 / " + playerInputManager.direction);
+
             var data = new NetworkInputData();
 
             data.direction = playerInputManager.direction;
@@ -75,11 +79,16 @@ public class NetworkManager : MonoBehaviour, INetworkRunnerCallbacks
 
     public void OnPlayerJoined(NetworkRunner runner, PlayerRef player)
     {
-        if (runner.IsServer)
+        //if (runner.IsServer)
+        //if (runner.IsSharedModeMasterClient)
+        if (player == runner.LocalPlayer)
         {
             // Create a unique position for the player
             Vector3 spawnPosition = new Vector3((player.RawEncoded % runner.Config.Simulation.DefaultPlayers) * 3, 1, 0);
             NetworkObject networkPlayerObject = runner.Spawn(playerPrefab, spawnPosition, Quaternion.identity, player);
+            //NetworkObject networkPlayerObject = runner.Spawn(playerPrefab, position: transform.position, rotation: transform.rotation, player, (runner, obj) => {
+            //});
+
             // Keep track of the player avatars so we can remove it when they disconnect
             spawnedCharacters.Add(player, networkPlayerObject);
         }
